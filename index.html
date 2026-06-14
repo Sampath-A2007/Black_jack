@@ -1,17 +1,127 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Blackjack</title>
+        <meta name="description" content="Play Red Room Blackjack - A premium Blackjack casino game with smooth animations, dealer AI, and betting.">
+        <title>Red Room Blackjack</title>
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <!-- Main CSS -->
         <link rel="stylesheet" href="index.css">
     </head>
     <body>
-        <h1>Blackjack</h1>
-        <p id="message-el">Want to play a round?</p>
-        <p id="cards-el">Cards:</p>
-        <p id="sum-el">Sum:</p>
-        <button onclick="startGame()">START GAME</button>
-        <button onclick="newCard()">NEW CARD</button>
-        <p id="player-el"></p>
+        <!-- Swirling Smoke Background Overlay (No JS, just CSS) -->
+        <div class="smoke-overlay" aria-hidden="true"></div>
+
+        <main class="game-container">
+            <!-- Header bar with logo and bankroll -->
+            <header class="game-header">
+                <div class="logo-area">
+                    <span class="casino-badge">Red Room</span>
+                    <h1>Blackjack</h1>
+                </div>
+                <div class="bankroll-area">
+                    <span class="label">Bankroll</span>
+                    <span id="player-el" class="value">$200</span>
+                </div>
+            </header>
+
+            <!-- The Playing Table Felt -->
+            <section class="table-felt" aria-label="Blackjack Table">
+                
+                <!-- Dealer Area -->
+                <div class="hand-section" id="dealer-section">
+                    <div class="section-header">
+                        <h2>Dealer</h2>
+                        <span id="dealer-score" class="score-badge hidden">0</span>
+                    </div>
+                    <div id="dealer-cards" class="cards-container">
+                        <!-- Cards will be dynamically inserted here -->
+                    </div>
+                </div>
+
+                <!-- Deck Pile & Bet Placement Area -->
+                <div class="table-center">
+                    <!-- Deck of Cards -->
+                    <div class="deck-pile" aria-hidden="true">
+                        <div class="deck-card card-back-design"></div>
+                        <div class="deck-card card-back-design"></div>
+                        <div class="deck-card card-back-design"></div>
+                    </div>
+                    
+                    <!-- Bet Area -->
+                    <div class="bet-spot">
+                        <div class="bet-circle" id="bet-circle-spot">
+                            <span class="bet-label">Current Bet</span>
+                            <span id="bet-amount" class="bet-val">$0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Player Area -->
+                <div class="hand-section" id="player-section">
+                    <div class="section-header">
+                        <h2>Player</h2>
+                        <span id="player-score" class="score-badge hidden">0</span>
+                    </div>
+                    <div id="player-cards" class="cards-container">
+                        <!-- Cards will be dynamically inserted here -->
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Message Notification Strip -->
+            <div class="message-banner">
+                <p id="message-el">Place your bet to start the round</p>
+            </div>
+
+            <!-- Interactive Game Controls Footer -->
+            <footer class="controls-panel">
+                
+                <!-- Phase 1: Betting Controls -->
+                <div id="betting-controls" class="control-group active">
+                    <div class="chips-selector" aria-label="Betting Chips">
+                        <button id="chip-10" class="chip-btn chip-10" onclick="addBet(10)" data-value="10">
+                            <span class="chip-inner">10</span>
+                        </button>
+                        <button id="chip-50" class="chip-btn chip-50" onclick="addBet(50)" data-value="50">
+                            <span class="chip-inner">50</span>
+                        </button>
+                        <button id="chip-100" class="chip-btn chip-100" onclick="addBet(100)" data-value="100">
+                            <span class="chip-inner">100</span>
+                        </button>
+                        <button id="chip-500" class="chip-btn chip-500" onclick="addBet(500)" data-value="500">
+                            <span class="chip-inner">500</span>
+                        </button>
+                    </div>
+                    <div class="bet-actions">
+                        <button id="clear-btn" class="btn btn-secondary" onclick="clearBet()">Clear Bet</button>
+                        <button id="deal-btn" class="btn btn-primary btn-glow" onclick="startGame()">Deal Game</button>
+                    </div>
+                </div>
+
+                <!-- Phase 2: Action Controls -->
+                <div id="action-controls" class="control-group">
+                    <button id="hit-btn" class="btn btn-primary" onclick="newCard()">Hit</button>
+                    <button id="stand-btn" class="btn btn-accent" onclick="stand()">Stand</button>
+                    <button id="double-btn" class="btn btn-secondary" onclick="doubleDown()">Double Down</button>
+                </div>
+
+            </footer>
+
+            <div class="table-rules">
+                <span>Blackjack pays 3:2</span>
+                <span class="rules-dot">•</span>
+                <span>Dealer stands on 17</span>
+                <span class="rules-dot">•</span>
+                <span>Insurance not offered</span>
+            </div>
+        </main>
+
         <script src="index.js"></script>
     </body>
 </html>
